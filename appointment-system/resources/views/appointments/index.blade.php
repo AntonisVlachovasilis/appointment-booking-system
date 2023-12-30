@@ -9,6 +9,18 @@
 <body>
     <h1>Appointment Booking System</h1>
     <div>
+        @if(session()->has('success'))
+        <div>
+            {{session('success')}}
+        </div>
+        @endif
+    </div>
+    <div>
+        <a href="{{route('appointment.create')}}">
+            <button>Create new Appointment</button>
+        </a>
+    </div>
+    <div>
         <table>
             <thead>
                 <tr>
@@ -25,8 +37,13 @@
                     <td>#</td>
                     <td>{{$appointment->date}}</td>
                     <td>
-                        <button>edit</button>
-                        <button>delete</button>
+                        <a href="{{route('appointment.edit',['appointment' => $appointment])}}"><button>Edit</button></a>
+                        <form action="{{route('appointment.destroy',['appointment' => $appointment])}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" value="Delete">
+                        </form>
+
                     </td>
                 </tr>
                 @endforeach
