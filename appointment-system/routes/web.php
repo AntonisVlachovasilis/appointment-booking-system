@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
+Route::get('/appointment/create', [AppointmentController::class, 'create'])->name('appointment.create');
+Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
+Route::get('/appointment/{appointment}/edit', [AppointmentController::class, 'edit'])->name('appointment.edit');
+Route::put('/appointment/{appointment}/update', [AppointmentController::class, 'update'])->name('appointment.update');
+Route::delete('/appointment/{appointment}/destroy', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -28,4 +36,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
