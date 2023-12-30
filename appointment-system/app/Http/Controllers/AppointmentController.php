@@ -36,7 +36,7 @@ class AppointmentController extends Controller
 
 
         $newAppointment = Appointment::create(['date' => $proposedDate]);
-        return redirect((route('appointment.index')));
+        return redirect((route('appointment.index')))->with('success', 'Appointment created successfully');;
     }
 
     public function edit(Appointment $appointment)
