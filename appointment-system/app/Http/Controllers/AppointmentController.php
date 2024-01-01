@@ -21,6 +21,8 @@ class AppointmentController extends Controller
 
     public function store(Request $request)
     {
+
+
         $data = $request->validate([
             'date' => 'required'
         ]);
@@ -31,12 +33,13 @@ class AppointmentController extends Controller
         $overlappingAppointments = Appointment::where('date', $proposedDate)->exists();
 
         if ($overlappingAppointments) {
-            return redirect(route('appointment.create'))->with('error', 'The appointment date overlaps with an existing appointment.');
+
+            return redirect(route('appointment.create'))->with('warning', 'The appointment date and hour already exists');
         }
 
 
         $newAppointment = Appointment::create(['date' => $proposedDate]);
-        return redirect((route('appointment.index')))->with('success', 'Appointment created successfully');;
+        return redirect((route('appointment.index')))->with('success', 'Appointment created successfully');
     }
 
     public function edit(Appointment $appointment)
@@ -56,9 +59,7 @@ class AppointmentController extends Controller
         // Check for overlapping appointments
         $overlappingAppointments = Appointment::where('date', $proposedDate)->exists();
 
-        // if ($overlappingAppointments) {
-        //     return redirect(route('appointment.edit'))->with('error', 'The appointment date overlaps with an existing appointment.');
-        // }
+
 
         $appointment->update($data);
 

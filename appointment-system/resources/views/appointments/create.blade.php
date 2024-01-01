@@ -3,13 +3,13 @@
 
 <h1 class="text-2xl font-extrabold dark:text-black mb-2">Create new Appointment</h1>
 
-<div>
-    @if(session()->has('error'))
-    <div>
-        {{session('error')}}
-    </div>
-    @endif
+
+@if(session()->has('warning'))
+<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
+    {{session('warning')}}
 </div>
+@endif
+
 <form action="{{route('appointment.store')}}" method="post" class="max-w-sm mx-auto">
 
     @csrf
