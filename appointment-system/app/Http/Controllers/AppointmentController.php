@@ -59,7 +59,10 @@ class AppointmentController extends Controller
         // Check for overlapping appointments
         $overlappingAppointments = Appointment::where('date', $proposedDate)->exists();
 
+        if ($overlappingAppointments) {
 
+            return redirect()->back()->withInput()->with('warning', 'The appointment date and hour already exists');
+        }
 
         $appointment->update($data);
 
