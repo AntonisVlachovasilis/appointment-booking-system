@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class AppointmentController extends Controller
 {
     public function index()
     {
 
-        $appointments = Appointment::all();
+        $appointments = Appointment::paginate(5);
         return view('appointments.index', ['appointments' => $appointments]);
     }
 
